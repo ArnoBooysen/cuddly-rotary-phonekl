@@ -1,3 +1,12 @@
+'''
+Program prints True if output C is right by comparing to cupy function
+Output correctness not affected by no. of cols (hence set to 1 for now)
+Output (can be) incorrect if no. of rows > threads in that dimension. i.e. 17rows>16threads causes wrong output if
+    there is a value in the 17th row 
+Matrix A is transposed for maatrix multiplication so A has 1 row, 17 col. and B has 17 row, 1 col
+
+'''
+
 from numba import cuda, int8, int32, float32, int16
 import numpy as np
 import math
@@ -76,7 +85,7 @@ tic('cupy')
 #Test if same result
 outcp = cp.asnumpy(outcp)
 print('equals:',np.array_equal(outFast, outcp))
-print('numpy',outFast)
+print('numba',outFast)
 #print('numpy s',outFast.shape)
 print('cupy',outcp)
 #print('cupy s',outcp.shape)
